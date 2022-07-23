@@ -1,0 +1,46 @@
+.container_speaker {
+  margin: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-right: 3rem;
+  margin-left: 3rem;
+}
+
+.container_list {
+  margin: 1rem;
+}
+
+.container_speaker_list {
+  padding: 0;
+  width: 20rem;
+  min-height: 35rem;
+  border: 1px solid rgb(194, 194, 194);
+}
+
+.speaker_list_col {
+  display: flex;
+  flex-direction: column;
+}
+
+.speaker_list_image {
+  margin: auto;
+  padding: 1rem;
+}
+
+.speaker_info {
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.session_box {
+  background-color: rgb(231, 231, 231);
+  padding: 0.25rem;
+  margin: 0;
+  width: 20rem;
+  border: 1px solid rgb(189, 189, 189);
+}
