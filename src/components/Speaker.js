@@ -1,4 +1,5 @@
 import styles from "../../pages/index.module.css";
+import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
 
 function Session({ title, room }) {
   return (
@@ -44,9 +45,31 @@ function SpeakerDemographics({
         </h3>
       </div>
       <div>
-        <p>
+        <p className={styles.speaker_desc}>
           {bio} {company} {twitterHandle} {favorite}
         </p>
+        <div className={styles.social_desc}>
+          <div className={styles.company_container}>
+            <AiOutlineHome
+              className={styles.home_icon}
+              color="cornflowerblue"
+            />
+            <div className={styles.company}>
+              <h5>Company</h5>
+              <h6>{company}</h6>
+            </div>
+          </div>
+          <div className={styles.twitter_container}>
+            <AiOutlineTwitter
+              className={styles.twitter_icon}
+              color="cornflowerblue"
+            />
+            <div className={styles.twitter}>
+              <h5>Twitter</h5>
+              <h6>{twitterHandle}</h6>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

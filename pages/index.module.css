@@ -1,6 +1,6 @@
 .container_speaker {
-  margin-right: 5rem;
-  margin-left: 5rem;
+  margin-right: 15%;
+  margin-left: 15%;
 }
 
 .row {
@@ -34,6 +34,42 @@
 .speaker_info {
   justify-content: space-between;
   padding: 1rem;
+}
+
+.company {
+  color: rgb(59, 59, 59);
+}
+
+.twitter {
+  color: rgb(59, 59, 59);
+}
+
+.company_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.company_container .home_icon {
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.twitter_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.twitter_container .twitter_icon {
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.social_desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .session_box {
