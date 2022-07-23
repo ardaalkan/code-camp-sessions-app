@@ -1,5 +1,6 @@
 .container_speaker {
-  margin: 1rem;
+  margin-right: 5rem;
+  margin-left: 5rem;
 }
 
 .row {
@@ -7,8 +8,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-right: 3rem;
-  margin-left: 3rem;
+  margin-top: 1rem;
 }
 
 .container_list {
@@ -16,7 +16,6 @@
 }
 
 .container_speaker_list {
-  padding: 0;
   width: 20rem;
   min-height: 35rem;
   border: 1px solid rgb(194, 194, 194);
