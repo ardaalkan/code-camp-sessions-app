@@ -1,5 +1,6 @@
 .toolbar_section {
   background-color: var(--color-light-dark);
+  border-bottom: 1px solid rgb(197, 197, 197);
 }
 
 .toolbar_containerr {

@@ -12,7 +12,6 @@ function Speakers({ data }) {
         setShowSessions={setShowSessions}
       />
       <SpeakersList
-        data={data}
         showSessions={showSessions}
         setShowSessions={setShowSessions}
       />

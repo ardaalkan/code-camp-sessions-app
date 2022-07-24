@@ -1,5 +1,6 @@
 import styles from "../../pages/index.module.css";
 import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
+import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 
 function Session({ title, room }) {
   return (
@@ -29,6 +30,22 @@ function SpeakerImage({ id, first, last }) {
   );
 }
 
+function SpeakerFavorite({ favorite }) {
+  return (
+    <div className={styles.favorite_icon_container}>
+      {favorite === true ? (
+        <MdFavorite className={styles.favorite_icons} color="grey" />
+      ) : (
+        <MdOutlineFavoriteBorder
+          className={styles.favorite_icons}
+          color="grey"
+        />
+      )}
+      Favorite
+    </div>
+  );
+}
+
 function SpeakerDemographics({
   first,
   last,
@@ -44,6 +61,7 @@ function SpeakerDemographics({
           {first} {last}
         </h3>
       </div>
+      <SpeakerFavorite favorite={favorite} />
       <div>
         <p className={styles.speaker_desc}>
           {bio} {company} {twitterHandle} {favorite}
