@@ -1,0 +1,23 @@
+.toolbar_section {
+  background-color: var(--color-light-dark);
+}
+
+.toolbar_containerr {
+  display: flex;
+  flex-direction: row;
+}
+
+.unordered_list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin-left: 20%;
+}
+
+.unordered_list li {
+  margin: 1rem 1rem 0rem 0rem;
+}
+
+.session_text {
+  color: var(--color-text-light);
+}

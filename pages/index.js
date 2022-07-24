@@ -1,16 +1,11 @@
-import { data } from "../SpeakerData";
-import styles from "./index.module.css";
-import Speaker from "../src/components/Speaker";
+import App from "../src/components/App";
+import { ThemeProvider } from "../src/components/context/ThemeContext";
 
 const IndexPage = () => {
   return (
-    <div className={styles.container_speaker}>
-      <div className={styles.row}>
-        {data.map(function (speaker) {
-          return <Speaker key={speaker.id} speaker={speaker} />;
-        })}
-      </div>
-    </div>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   );
 };
 

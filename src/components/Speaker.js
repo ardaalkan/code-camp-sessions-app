@@ -75,7 +75,7 @@ function SpeakerDemographics({
   );
 }
 
-function Speaker({ speaker }) {
+function Speaker({ speaker, showSessions }) {
   const { id, first, last, sessions } = speaker;
   return (
     <div className={styles.container_list}>
@@ -85,7 +85,7 @@ function Speaker({ speaker }) {
           <SpeakerDemographics {...speaker} />
         </div>
       </div>
-      <Sessions sessions={sessions} />
+      {showSessions === true ? <Sessions sessions={sessions} /> : null}
     </div>
   );
 }
