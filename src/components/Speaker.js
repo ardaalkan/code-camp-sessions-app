@@ -30,9 +30,10 @@ function SpeakerImage({ id, first, last }) {
   );
 }
 
-function SpeakerFavorite({ favorite }) {
+function SpeakerFavorite({ favorite, onFavoriteToggle }) {
   return (
     <div className={styles.favorite_icon_container}>
+      <span onClick={onFavoriteToggle}>
       {favorite === true ? (
         <MdFavorite className={styles.favorite_icons} color="grey" />
       ) : (
@@ -42,6 +43,7 @@ function SpeakerFavorite({ favorite }) {
         />
       )}
       Favorite
+      </span>
     </div>
   );
 }
@@ -53,6 +55,7 @@ function SpeakerDemographics({
   company,
   twitterHandle,
   favorite,
+  onFavoriteToggle,
 }) {
   return (
     <div className={styles.speaker_info}>
@@ -61,7 +64,7 @@ function SpeakerDemographics({
           {first} {last}
         </h3>
       </div>
-      <SpeakerFavorite favorite={favorite} />
+      <SpeakerFavorite favorite={favorite} onFavoriteToggle={onFavoriteToggle}/>
       <div>
         <p className={styles.speaker_desc}>
           {bio} {company} {twitterHandle} {favorite}
@@ -93,14 +96,14 @@ function SpeakerDemographics({
   );
 }
 
-function Speaker({ speaker, showSessions }) {
+function Speaker({ speaker, showSessions, onFavoriteToggle }) {
   const { id, first, last, sessions } = speaker;
   return (
     <div className={styles.container_list}>
       <div className={styles.container_speaker_list}>
         <div className={styles.speaker_list_col}>
           <SpeakerImage id={id} first={first} last={last} />
-          <SpeakerDemographics {...speaker} />
+          <SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle}/>
         </div>
       </div>
       {showSessions === true ? <Sessions sessions={sessions} /> : null}
