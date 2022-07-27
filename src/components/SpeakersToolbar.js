@@ -1,9 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
 import styles from "./SpeakersToolbar.module.css";
 
-function SpeakersToolbar({ showSessions, setShowSessions }) {
+function SpeakersToolbar({}) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { showSessions, setShowSessions } = useContext(SpeakerFilterContext);
 
   return (
     <section className={styles.toolbar_section}>

@@ -1,7 +1,8 @@
 import styles from "../../pages/index.module.css";
 import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
 
 function Session({ title, room }) {
   return (
@@ -115,8 +116,9 @@ function SpeakerDemographics({
   );
 }
 
-function Speaker({ speaker, showSessions, onFavoriteToggle }) {
+function Speaker({ speaker, onFavoriteToggle }) {
   const { id, first, last, sessions } = speaker;
+  const { showSessions } = useContext(SpeakerFilterContext);
   return (
     <div className={styles.container_list}>
       <div className={styles.container_speaker_list}>
