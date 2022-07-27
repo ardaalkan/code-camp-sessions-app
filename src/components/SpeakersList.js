@@ -5,8 +5,12 @@ import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
 import { data } from "../../SpeakerData";
 
 function SpeakersList({ showSessions }) {
-  const { data: speakersData, requestStatus, error, updateRecord } =
-    useRequestDelay(2000, data);
+  const {
+    data: speakersData,
+    requestStatus,
+    error,
+    updateRecord,
+  } = useRequestDelay(2000, data);
 
   if (requestStatus === REQUEST_STATUS.FAILURE) {
     return (
@@ -31,11 +35,11 @@ function SpeakersList({ showSessions }) {
                 key={speaker.id}
                 speaker={speaker}
                 showSessions={showSessions}
-                onFavoriteToggle={() => {
-                  updateRecord({
-                    ...speaker,
-                    favorite: !speaker.favorite,
-                  });
+                onFavoriteToggle={(doneCallback) => {
+                  updateRecord(
+                    { ...speaker, favorite: !speaker.favorite },
+                    doneCallback
+                  );
                 }}
               />
             );

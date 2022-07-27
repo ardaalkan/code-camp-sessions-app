@@ -1,6 +1,7 @@
 import styles from "../../pages/index.module.css";
 import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import React, { useState } from "react";
 
 function Session({ title, room }) {
   return (
@@ -31,18 +32,33 @@ function SpeakerImage({ id, first, last }) {
 }
 
 function SpeakerFavorite({ favorite, onFavoriteToggle }) {
+  const [inTransition, setInTransition] = useState(false);
+
+  function doneCallback() {
+    setInTransition(false);
+    console.log(
+      `In SpeakerFavorite:doneCallback ${new Date().getMilliseconds()}`
+    );
+  }
+
   return (
     <div className={styles.favorite_icon_container}>
-      <span onClick={onFavoriteToggle}>
-      {favorite === true ? (
-        <MdFavorite className={styles.favorite_icons} color="grey" />
-      ) : (
-        <MdOutlineFavoriteBorder
-          className={styles.favorite_icons}
-          color="grey"
-        />
-      )}
-      Favorite
+      <span
+        onClick={function () {
+          setInTransition(true);
+          return onFavoriteToggle(doneCallback);
+        }}
+      >
+        {favorite === true ? (
+          <MdFavorite className={styles.favorite_icons} color="grey" />
+        ) : (
+          <MdOutlineFavoriteBorder
+            className={styles.favorite_icons}
+            color="grey"
+          />
+        )}
+        Favorite{" "}
+        {inTransition ? <i class="fas fa-circle-notch fa-spin"></i> : null}
       </span>
     </div>
   );
@@ -64,7 +80,10 @@ function SpeakerDemographics({
           {first} {last}
         </h3>
       </div>
-      <SpeakerFavorite favorite={favorite} onFavoriteToggle={onFavoriteToggle}/>
+      <SpeakerFavorite
+        favorite={favorite}
+        onFavoriteToggle={onFavoriteToggle}
+      />
       <div>
         <p className={styles.speaker_desc}>
           {bio} {company} {twitterHandle} {favorite}
@@ -103,7 +122,10 @@ function Speaker({ speaker, showSessions, onFavoriteToggle }) {
       <div className={styles.container_speaker_list}>
         <div className={styles.speaker_list_col}>
           <SpeakerImage id={id} first={first} last={last} />
-          <SpeakerDemographics {...speaker} onFavoriteToggle={onFavoriteToggle}/>
+          <SpeakerDemographics
+            {...speaker}
+            onFavoriteToggle={onFavoriteToggle}
+          />
         </div>
       </div>
       {showSessions === true ? <Sessions sessions={sessions} /> : null}
