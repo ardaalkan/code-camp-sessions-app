@@ -2,10 +2,18 @@ import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
 import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
 import styles from "./SpeakersToolbar.module.css";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function SpeakersToolbar({}) {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { showSessions, setShowSessions } = useContext(SpeakerFilterContext);
+  const {
+    showSessions,
+    setShowSessions,
+    eventYear,
+    setEventYear,
+    setSearchQuery,
+    EVENT_YEARS,
+  } = useContext(SpeakerFilterContext);
 
   return (
     <section className={styles.toolbar_section}>
@@ -35,6 +43,43 @@ function SpeakersToolbar({}) {
                 Theme
                 <option value="light">Light</option>
                 <option value="dark">Dark</option>
+              </select>
+            </label>
+          </li>
+          <li>
+            <div className={styles.input_group}>
+              <input
+                type="text"
+                className=""
+                placeholder="Search..."
+                onChange={(event) => {
+                  setSearchQuery(event.target.value);
+                }}
+              />
+              <div>
+                <button className={styles.search_button}>
+                  <AiOutlineSearch color="grey" />
+                </button>
+              </div>
+            </div>
+          </li>
+          <li>
+            <strong>Year</strong>
+            <label className={styles.dropdown_years}>
+              <select
+                className={styles.asdasd}
+                value={eventYear}
+                onChange={({ currentTarget }) => {
+                  setEventYear(currentTarget);
+                }}
+              >
+                {EVENT_YEARS.map(function (year) {
+                  return (
+                    <option value={year} key={year}>
+                      {year}
+                    </option>
+                  );
+                })}
               </select>
             </label>
           </li>

@@ -22,3 +22,13 @@
 .session_text {
   color: var(--color-text-light);
 }
+
+.input_group {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid grey;
+}
+
+.search_button {
+  background-color: transparent;
+}
