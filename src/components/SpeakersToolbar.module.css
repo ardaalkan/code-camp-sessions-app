@@ -32,3 +32,9 @@
 .search_button {
   background-color: transparent;
 }
+
+.year_option_list{
+  display: flex;
+  flex-direction: row;
+}
+

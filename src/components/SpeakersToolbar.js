@@ -4,7 +4,7 @@ import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext
 import styles from "./SpeakersToolbar.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 
-function SpeakersToolbar({}) {
+function SpeakersToolbar() {
   const { theme, setTheme } = useContext(ThemeContext);
   const {
     showSessions,
@@ -63,14 +63,14 @@ function SpeakersToolbar({}) {
               </div>
             </div>
           </li>
-          <li>
+          <li className={styles.year_option_list}>
             <strong>Year</strong>
+            {/* bug here */}
             <label className={styles.dropdown_years}>
               <select
-                className={styles.asdasd}
                 value={eventYear}
                 onChange={({ currentTarget }) => {
-                  setEventYear(currentTarget);
+                  setEventYear(currentTarget.value);
                 }}
               >
                 {EVENT_YEARS.map(function (year) {

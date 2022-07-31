@@ -32,34 +32,34 @@ function SpeakersList() {
         className={styles.speakerslist_placeholder}
         ready={requestStatus === REQUEST_STATUS.SUCCESS}
       >
-        <div className={styles.row}>
-          {speakersData
-            .filter(function (speaker) {
-              return (
-                speaker.first.toLowerCase().includes(searchQuery) ||
-                speaker.last.toLowerCase().includes(searchQuery)
-              );
-            })
-            .filter(function (speaker) {
-              return speaker.sessions.find((sessions) => {
-                return sessions.eventYear === eventYear;
-              });
-            })
-            .map(function (speaker) {
-              return (
-                <Speaker
-                  key={speaker.id}
-                  speaker={speaker}
-                  onFavoriteToggle={(doneCallback) => {
-                    updateRecord(
-                      { ...speaker, favorite: !speaker.favorite },
-                      doneCallback
-                    );
-                  }}
-                />
-              );
-            })}
-        </div>
+          <div className={styles.row}>
+            {speakersData
+              .filter(function (speaker) {
+                return (
+                  speaker.first.toLowerCase().includes(searchQuery) ||
+                  speaker.last.toLowerCase().includes(searchQuery)
+                );
+              })
+              .filter(function (speaker) {
+                return speaker.sessions.find((sessions) => {
+                  return sessions.eventYear === eventYear;
+                });
+              })
+              .map(function (speaker) {
+                return (
+                  <Speaker
+                    key={speaker.id}
+                    speaker={speaker}
+                    onFavoriteToggle={(doneCallback) => {
+                      updateRecord(
+                        { ...speaker, favorite: !speaker.favorite },
+                        doneCallback
+                      );
+                    }}
+                  />
+                );
+              })}
+          </div>
       </ReactPlaceholder>
     </div>
   );

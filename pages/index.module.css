@@ -1,5 +1,7 @@
+
 .speakerlist_container {
   background-color: var(--color-light-dark);
+  
 }
 
 .container_speaker {
@@ -12,7 +14,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
 }
 
 .container_list {
@@ -21,9 +24,12 @@
 
 .container_speaker_list {
   width: 20rem;
-  min-height: 35rem;
   border: 1px solid rgb(194, 194, 194);
   background-color: var(--color-dark);
+}
+
+.container_list:last-of-type{
+  align-content: left;
 }
 
 .speaker_list_col {

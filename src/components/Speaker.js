@@ -17,17 +17,16 @@ function Sessions({ sessions }) {
   return (
     <div className={styles.session_box}>
       {sessions
-        .filter(function(session) {
+        .filter(function (sessions) {
           return sessions.eventYear === eventYear;
         })
-        .map(function (session) {
-          return(
+        .map(function (sessions) {
+          return (
             <div key={sessions.id}>
-              <Sessions {...session}/>
+              <Session {...sessions} />
             </div>
-          )
-        })
-      }
+          );
+        })}
     </div>
   );
 }
