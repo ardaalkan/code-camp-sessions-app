@@ -5,6 +5,7 @@ import ReactPlaceholder from "react-placeholder/lib";
 import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
 import { data } from "../../SpeakerData";
 import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
+import SpeakerAdd from "./SpeakerAdd";
 
 function SpeakersList() {
   const {
@@ -12,6 +13,8 @@ function SpeakersList() {
     requestStatus,
     error,
     updateRecord,
+    insertRecord,
+    deleteRecord,
   } = useRequestDelay(2000, data);
 
   const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
@@ -32,34 +35,32 @@ function SpeakersList() {
         className={styles.speakerslist_placeholder}
         ready={requestStatus === REQUEST_STATUS.SUCCESS}
       >
-          <div className={styles.row}>
-            {speakersData
-              .filter(function (speaker) {
-                return (
-                  speaker.first.toLowerCase().includes(searchQuery) ||
-                  speaker.last.toLowerCase().includes(searchQuery)
-                );
-              })
-              .filter(function (speaker) {
-                return speaker.sessions.find((sessions) => {
-                  return sessions.eventYear === eventYear;
-                });
-              })
-              .map(function (speaker) {
-                return (
-                  <Speaker
-                    key={speaker.id}
-                    speaker={speaker}
-                    onFavoriteToggle={(doneCallback) => {
-                      updateRecord(
-                        { ...speaker, favorite: !speaker.favorite },
-                        doneCallback
-                      );
-                    }}
-                  />
-                );
-              })}
-          </div>
+        <SpeakerAdd eventYear={eventYear} insertRecord={insertRecord} />
+        <div className={styles.row}>
+          {speakersData
+            .filter(function (speaker) {
+              return (
+                speaker.first.toLowerCase().includes(searchQuery) ||
+                speaker.last.toLowerCase().includes(searchQuery)
+              );
+            })
+            .filter(function (speaker) {
+              return speaker.sessions.find((sessions) => {
+                return sessions.eventYear === eventYear;
+              });
+            })
+            .map(function (speaker) {
+              return (
+                <Speaker
+                  key={speaker.id}
+                  speaker={speaker}
+                  updateRecord={updateRecord}
+                  insertRecord={insertRecord}
+                  deleteRecord={deleteRecord}
+                />
+              );
+            })}
+        </div>
       </ReactPlaceholder>
     </div>
   );

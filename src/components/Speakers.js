@@ -2,6 +2,7 @@ import SpeakersList from "./SpeakersList";
 import SpeakersToolbar from "./SpeakersToolbar";
 import { SpeakerFilterProvider } from "../components/context/SpeakerFilterContext";
 
+
 function Speakers() {
   return (
     <SpeakerFilterProvider startingShowSessions={false}>

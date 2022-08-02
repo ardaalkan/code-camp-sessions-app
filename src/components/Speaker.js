@@ -3,6 +3,11 @@ import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import React, { useContext, useState } from "react";
 import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
+import {
+  SpeakerProvider,
+  SpeakerContext,
+} from "../components/context/SpeakerContext";
+import SpeakerDelete from "../components/SpeakerDelete";
 
 function Session({ title, room }) {
   return (
@@ -12,8 +17,10 @@ function Session({ title, room }) {
   );
 }
 
-function Sessions({ sessions }) {
+function Sessions() {
   const { eventYear } = useContext(SpeakerFilterContext);
+  const { speaker } = useContext(SpeakerContext);
+  const sessions = speaker.sessions;
   return (
     <div className={styles.session_box}>
       {sessions
@@ -31,7 +38,10 @@ function Sessions({ sessions }) {
   );
 }
 
-function SpeakerImage({ id, first, last }) {
+function SpeakerImage() {
+  const {
+    speaker: { id, first, last },
+  } = useContext(SpeakerContext);
   return (
     <div className={styles.speaker_list_image}>
       <img
@@ -43,7 +53,8 @@ function SpeakerImage({ id, first, last }) {
   );
 }
 
-function SpeakerFavorite({ favorite, onFavoriteToggle }) {
+function SpeakerFavorite() {
+  const { speaker, updateRecord } = useContext(SpeakerContext);
   const [inTransition, setInTransition] = useState(false);
 
   function doneCallback() {
@@ -58,10 +69,16 @@ function SpeakerFavorite({ favorite, onFavoriteToggle }) {
       <span
         onClick={function () {
           setInTransition(true);
-          return onFavoriteToggle(doneCallback);
+          updateRecord(
+            {
+              ...speaker,
+              favorite: !speaker.favorite,
+            },
+            doneCallback
+          );
         }}
       >
-        {favorite === true ? (
+        {speaker.favorite === true ? (
           <MdFavorite className={styles.favorite_icons} color="grey" />
         ) : (
           <MdOutlineFavoriteBorder
@@ -76,15 +93,9 @@ function SpeakerFavorite({ favorite, onFavoriteToggle }) {
   );
 }
 
-function SpeakerDemographics({
-  first,
-  last,
-  bio,
-  company,
-  twitterHandle,
-  favorite,
-  onFavoriteToggle,
-}) {
+function SpeakerDemographics() {
+  const { speaker } = useContext(SpeakerContext);
+  const { first, last, bio, company, twitterHandle, favorite } = speaker;
   return (
     <div className={styles.speaker_info}>
       <div>
@@ -92,10 +103,7 @@ function SpeakerDemographics({
           {first} {last}
         </h3>
       </div>
-      <SpeakerFavorite
-        favorite={favorite}
-        onFavoriteToggle={onFavoriteToggle}
-      />
+      <SpeakerFavorite />
       <div>
         <p className={styles.speaker_desc}>
           {bio} {company} {twitterHandle} {favorite}
@@ -127,22 +135,26 @@ function SpeakerDemographics({
   );
 }
 
-function Speaker({ speaker, onFavoriteToggle }) {
-  const { id, first, last, sessions } = speaker;
+function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
   const { showSessions } = useContext(SpeakerFilterContext);
   return (
-    <div className={styles.container_list}>
-      <div className={styles.container_speaker_list}>
-        <div className={styles.speaker_list_col}>
-          <SpeakerImage id={id} first={first} last={last} />
-          <SpeakerDemographics
-            {...speaker}
-            onFavoriteToggle={onFavoriteToggle}
-          />
+    <SpeakerProvider
+      speaker={speaker}
+      updateRecord={updateRecord}
+      insertRecord={insertRecord}
+      deleteRecord={deleteRecord}
+    >
+      <div className={styles.container_list}>
+        <div className={styles.container_speaker_list}>
+          <div className={styles.speaker_list_col}>
+            <SpeakerImage />
+            <SpeakerDemographics />
+          </div>
         </div>
+        {showSessions === true ? <Sessions /> : null}
+        <SpeakerDelete />
       </div>
-      {showSessions === true ? <Sessions sessions={sessions} /> : null}
-    </div>
+    </SpeakerProvider>
   );
 }
 
