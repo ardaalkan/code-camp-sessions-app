@@ -1,13 +1,14 @@
 import styles from "../../pages/index.module.css";
 import { AiOutlineTwitter, AiOutlineHome } from "react-icons/ai";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, memo } from "react";
 import { SpeakerFilterContext } from "../components/context/SpeakerFilterContext";
 import {
   SpeakerProvider,
   SpeakerContext,
 } from "../components/context/SpeakerContext";
 import SpeakerDelete from "../components/SpeakerDelete";
+import next from "next";
 
 function Session({ title, room }) {
   return (
@@ -149,7 +150,12 @@ function SpeakerDemographics() {
   );
 }
 
-function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
+const Speaker = memo(function Speaker({
+  speaker,
+  updateRecord,
+  insertRecord,
+  deleteRecord,
+}) {
   const { showSessions } = useContext(SpeakerFilterContext);
   return (
     <SpeakerProvider
@@ -170,6 +176,10 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }) {
       </div>
     </SpeakerProvider>
   );
+}, areEqualSpeaker);
+
+function areEqualSpeaker(prevProps, nextProps) {
+  return (prevProps.speaker.favorite == nextProps.speaker.favorite);
 }
 
 export default Speaker;
