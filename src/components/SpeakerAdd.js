@@ -1,6 +1,10 @@
 import styles from "../../pages/index.module.css";
+import withAuth from "./withAuth";
 
-function SpeakerAdd({ eventYear, insertRecord }) {
+function SpeakerAdd({ eventYear, insertRecord, loggedInUser }) {
+
+  if (!loggedInUser || loggedInUser.length === 0) return null;
+
   return (
     <div className={styles.speaker_add_container}>
       <a href="#">
@@ -35,4 +39,4 @@ function SpeakerAdd({ eventYear, insertRecord }) {
   );
 }
 
-export default SpeakerAdd;
+export default withAuth(SpeakerAdd);

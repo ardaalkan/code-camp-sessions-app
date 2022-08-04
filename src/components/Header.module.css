@@ -12,11 +12,17 @@
 }
 
 .svcc_home_img {
+  /*  */
 }
 
 .code_camp_text {
+  /*  */
 }
 
 .account_container {
   color: var(--color-text-light);
+}
+
+.logged_btn{
+  margin-left: 1rem;
 }

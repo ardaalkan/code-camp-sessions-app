@@ -12,11 +12,17 @@
   display: flex;
   flex-direction: row;
   list-style: none;
-  margin-left: 20%;
+  justify-content: space-evenly;
+  padding-left: 10rem;
+  padding-right: 10rem;
+  margin: auto;
+  margin-right: 6rem;
+  margin-left: 6rem;
 }
 
 .unordered_list li {
-  margin: 1rem 1rem 0rem 0rem;
+  margin: 1rem 0rem 1rem 0rem;
+  padding: 0rem 0.5rem 0rem 0.5rem;
 }
 
 .session_text {
@@ -33,8 +39,7 @@
   background-color: transparent;
 }
 
-.year_option_list{
+.year_option_list {
   display: flex;
   flex-direction: row;
 }
-

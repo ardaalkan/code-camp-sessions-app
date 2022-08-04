@@ -8,7 +8,7 @@ import {
   SpeakerContext,
 } from "../components/context/SpeakerContext";
 import SpeakerDelete from "../components/SpeakerDelete";
-import next from "next";
+import ErrorBoundary from "./ErrorBoundary";
 
 function Session({ title, room }) {
   return (
@@ -121,7 +121,7 @@ function SpeakerDemographics() {
       <SpeakerFavorite />
       <div>
         <p className={styles.speaker_desc}>
-          {bio} {company} {twitterHandle} {favorite}
+          {bio.substr(0, 70)} {company} {twitterHandle} {favorite}
         </p>
         <div className={styles.social_desc}>
           <div className={styles.company_container}>
@@ -150,13 +150,30 @@ function SpeakerDemographics() {
   );
 }
 
-const Speaker = memo(function Speaker({
+const SpeakerNoErrorBoundary = memo(function Speaker({
   speaker,
   updateRecord,
   insertRecord,
   deleteRecord,
+  showErrorCard,
 }) {
   const { showSessions } = useContext(SpeakerFilterContext);
+
+  if (showErrorCard) {
+    return (
+      <div className={styles.container_list}>
+        <div className={styles.container_speaker_list}>
+          <div className={styles.speaker_list_col}>
+            <img src="/images/speaker-99999.jpg" />
+            <div>
+              <b>Error Showing Speaker</b>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <SpeakerProvider
       speaker={speaker}
@@ -176,10 +193,26 @@ const Speaker = memo(function Speaker({
       </div>
     </SpeakerProvider>
   );
-}, areEqualSpeaker);
+},
+areEqualSpeaker);
+
+function Speaker(props) {
+  return (
+    <ErrorBoundary
+      errorUI={
+        <SpeakerNoErrorBoundary
+          {...props}
+          showErrorCard={true}
+        ></SpeakerNoErrorBoundary>
+      }
+    >
+      <SpeakerNoErrorBoundary {...props}></SpeakerNoErrorBoundary>
+    </ErrorBoundary>
+  );
+}
 
 function areEqualSpeaker(prevProps, nextProps) {
-  return (prevProps.speaker.favorite == nextProps.speaker.favorite);
+  return prevProps.speaker.favorite == nextProps.speaker.favorite;
 }
 
 export default Speaker;

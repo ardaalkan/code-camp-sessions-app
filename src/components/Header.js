@@ -1,6 +1,38 @@
 import styles from "../components/Header.module.css";
+import withAuth from "../components/withAuth";
 
-function Header() {
+function Header({ loggedInUser, setLoggedInUser }) {
+  function LoggedIn({ loggedInUser, setLoggedInUser }) {
+    return (
+      <div>
+        <span>Logged in as {loggedInUser}</span>
+        <button
+          className={styles.logged_btn}
+          onClick={() => {
+            setLoggedInUser("");
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  function NotLoggedIn({ loggedInUser, setLoggedInUser }) {
+    return (
+      <button
+        className={styles.btn2}
+        onClick={(e) => {
+          e.preventDefault();
+          const username = window.prompt("Enter Login Name: ", "");
+          setLoggedInUser(username);
+        }}
+      >
+        Login
+      </button>
+    );
+  }
+
   return (
     <div>
       <div className={styles.header_container}>
@@ -10,15 +42,20 @@ function Header() {
         <div className={styles.code_camp_text}>
           <h4 className={styles.header_text}>Silicon Valley Code Camp</h4>
         </div>
-        <div className={styles.account_container}>
-          Hello Mr. Smith &nbsp;&nbsp;
-          <span>
-            <a href="#">sign-out</a>
-          </span>
-        </div>
+        {loggedInUser && loggedInUser.length > 0 ? (
+          <LoggedIn
+            loggedInUser={loggedInUser}
+            setLoggedInUser={setLoggedInUser}
+          />
+        ) : (
+          <NotLoggedIn
+            loggedInUser={loggedInUser}
+            setLoggedInUser={setLoggedInUser}
+          />
+        )}
       </div>
     </div>
   );
 }
 
-export default Header;
+export default withAuth(Header);
